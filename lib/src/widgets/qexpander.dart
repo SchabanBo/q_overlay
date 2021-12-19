@@ -178,7 +178,7 @@ class _QExpander with QOverlayBase {
         parentPosition.dx + parentSize.width,
         parentPosition.dy + parentSize.height));
 
-    size = size ?? Size(0, 0);
+    size = size ?? const Size(0, 0);
     final x = position.dx + (size.width * 0.5 * alignment.x - size.width * 0.5);
     final y =
         position.dy + (size.height * 0.5 * alignment.y - size.height * 0.5);
@@ -189,7 +189,7 @@ class _QExpander with QOverlayBase {
   }
 
   Offset _getGlobalPosition(Size screen, Size? size) {
-    size = size ?? Size(0, 0);
+    size = size ?? const Size(0, 0);
     final x =
         (screen.width / 2 + screen.width / 2 * widget.globalAlignment!.x) -
             (size.width * 0.5 + size.width * 0.5 * widget.globalAlignment!.x);

@@ -33,14 +33,6 @@ class _OverlayWidgetState extends State<OverlayWidget>
         animation: widget.overlay.animation, tickerProvider: this);
     super.initState();
 
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
-      if (containerKey.currentContext != null) {
-        final containerSize = containerKey.currentContext!.size;
-        _size = containerSize;
-        setState(() {});
-      }
-    });
-
     if (widget.overlay.actions.onReady != null) {
       widget.overlay.actions.onReady!();
     }
@@ -52,10 +44,25 @@ class _OverlayWidgetState extends State<OverlayWidget>
     });
   }
 
+  void _updateSize() {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      if (containerKey.currentContext != null) {
+        final containerSize = containerKey.currentContext!.size;
+        if (_size == null) {
+          _size = containerSize;
+          setState(() {});
+        } else {
+          _size = containerSize;
+        }
+      }
+    });
+  }
+
   Offset? _moveingPosition;
 
   @override
   Widget build(BuildContext context) {
+    _updateSize();
     final _position = widget.position(_size, _moveingPosition);
     return Positioned(
       left: _position.dx,
@@ -81,6 +88,7 @@ class _OverlayWidgetState extends State<OverlayWidget>
 
   Widget get child => SafeArea(
       child: Material(
+          color: Colors.transparent,
           key: containerKey,
           child: Container(
               margin: widget.overlay.margin,

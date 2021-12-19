@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 
@@ -11,6 +12,9 @@ import 'qoverlay.dart';
 
 /// Show a panel in any router you have in your project
 class QPanel with QOverlayBase {
+  static double defualtWidthPercent = 0.25;
+  static double defualtHightPercent = 0.25;
+
   /// The Position where the panal should displayed
   final Alignment alignment;
 
@@ -65,7 +69,7 @@ class QPanel with QOverlayBase {
     this.margin,
     this.height,
     this.backgroundDecoration,
-    this.backgroundFilter,
+    this.backgroundFilter = const FilterSettings(),
     this.width,
     this.duration,
     this.color,
@@ -99,39 +103,35 @@ class QPanel with QOverlayBase {
   }
 
   Offset _calcPosition(Size screen, Size? size) {
-    size = size ?? Size(0, 0);
+    size = size ?? const Size(0, 0);
     final x = (screen.width / 2 + screen.width / 2 * alignment.x) -
         (size.width * 0.5 + size.width * 0.5 * alignment.x) +
         offset.dx;
     final y = (screen.height / 2 + screen.height / 2 * alignment.y) -
         (size.height * 0.5 + size.height * 0.5 * alignment.y) +
         offset.dy;
-    return Offset(x, y);
+    return Offset(max(0, min(x, screen.width)), max(0, min(y, screen.height)));
   }
 
   double? _getWidth(Size screen) {
     if (width != null) return width;
     if (shrink) return null;
-    if (alignment.x == 0.0 && alignment.y != 0) return screen.width;
-    return screen.width * 0.35;
+    if (alignment.y != 0) return screen.width;
+    return screen.width * defualtWidthPercent;
   }
 
   double? _getHeight(Size screen) {
-    if (height != null) {
-      return height;
-    }
-    if (shrink) {
-      return null;
-    }
-    if (alignment.x != 00 && alignment.y == 0.0) return screen.height;
-    return screen.height * 0.35;
+    if (height != null) return height;
+    if (shrink) return null;
+    if (alignment.x != 0 && alignment.y == 0) return screen.height;
+    return screen.height * defualtHightPercent;
   }
 
   Offset getBegin() {
     if (alignment.x != 0.0) return Offset(alignment.x, 0.0);
 
     if (alignment.y == 0.0 && alignment.y == 0.0) {
-      return Offset(0.0, 5);
+      return const Offset(0.0, 5);
     }
 
     return Offset(0.0, alignment.y);

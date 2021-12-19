@@ -49,6 +49,7 @@ class _PanelSectionState extends State<_PanelSection> {
             ),
           ),
         ),
+        _showWithList
       ],
     );
   }
@@ -82,35 +83,67 @@ class _PanelSectionState extends State<_PanelSection> {
 
   Widget get child => Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            const Text('Panel'),
-            const Text('This this cool Panel'),
-            const SizedBox(height: 8),
-            ElevatedButton(
-              onPressed: () => QOverlay.dismissLast(),
-              child: const Text('Close'),
-            ),
-            const SizedBox(height: 8),
-            TextField(
-              decoration: const InputDecoration(
-                labelText:
-                    'Enter you value to return to the previous screen, press Enter to confirm',
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const Text('Panel'),
+              const Text('This this cool Panel'),
+              const SizedBox(height: 8),
+              ElevatedButton(
+                onPressed: () => QOverlay.dismissLast(),
+                child: const Text('Close'),
               ),
-              onSubmitted: (value) => QOverlay.dismissLast(result: value),
-            ),
-            const SizedBox(height: 8),
-            ElevatedButton(
-              onPressed: () => QOverlay.dismissAll(),
-              child: const Text('Close All'),
-            ),
-            const SizedBox(height: 8),
-            ElevatedButton(
-              onPressed: () => QOverlay.dismissAll(atSmaeTime: true),
-              child: const Text('Close All at smae time'),
-            ),
-            const SizedBox(height: 8),
-          ],
+              const SizedBox(height: 8),
+              TextField(
+                decoration: const InputDecoration(
+                  labelText:
+                      'Enter you value to return to the previous screen, press Enter to confirm',
+                ),
+                onSubmitted: (value) => QOverlay.dismissLast(result: value),
+              ),
+              const SizedBox(height: 8),
+              ElevatedButton(
+                onPressed: () => QOverlay.dismissAll(),
+                child: const Text('Close All'),
+              ),
+              const SizedBox(height: 8),
+              ElevatedButton(
+                onPressed: () => QOverlay.dismissAll(atSmaeTime: true),
+                child: const Text('Close All at smae time'),
+              ),
+              const SizedBox(height: 8),
+            ],
+          ),
+        ),
+      );
+
+  Widget get _showWithList => Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ElevatedButton(
+          onPressed: () async {
+            QOverlay.show<String>(QPanel(
+                margin: const EdgeInsets.all(8),
+                child: Column(
+                  children: [
+                    const Text('Cool list'),
+                    Expanded(
+                        child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: 100,
+                            itemBuilder: (c, i) => Text('$i'))),
+                    ElevatedButton(
+                      onPressed: () => QOverlay.dismissLast(),
+                      child: const Text('Close'),
+                    ),
+                    const SizedBox(height: 10)
+                  ],
+                ),
+                alignment: Alignment.centerRight));
+          },
+          child: const Text(
+            'Show long list',
+            style: TextStyle(fontSize: 18),
+          ),
         ),
       );
 }
