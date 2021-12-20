@@ -131,6 +131,25 @@ class _WindowSectionState extends State<_WindowSection> {
               style: TextStyle(fontSize: 18),
             ),
           ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ElevatedButton(
+            onPressed: () async {
+              final result =
+                  await QWindow.confirmation(message: 'Are you sure?')
+                      .show<bool?>();
+              QNotification(
+                  child: Padding(
+                padding: const EdgeInsets.all(18.0),
+                child: Text('Result: $result'),
+              )).show();
+            },
+            child: const Text(
+              'Show confirmation window',
+              style: TextStyle(fontSize: 18),
+            ),
+          ),
         )
       ],
     );
@@ -141,7 +160,7 @@ class _WindowSectionState extends State<_WindowSection> {
     QOverlay.show(QWindow(
       name: name,
       position: Offset(_offsetX, _offsetY),
-      backgroundFilter: _isFLoating ? null : FilterSettings(),
+      backgroundFilter: _isFLoating ? null : const FilterSettings(),
       canMove: _canMoved,
       duration: _seconds <= 0 ? null : Duration(seconds: _seconds),
       child: child(name),

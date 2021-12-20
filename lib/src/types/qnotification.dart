@@ -86,7 +86,7 @@ class QNotification with QOverlayBase {
       QOverlay.show(this, context: context);
 
   Offset _calcPosition(Size screen, Size? size) {
-    size = size ?? Size(0, 0);
+    size = size ?? const Size(0, 0);
     final x = (screen.width / 2 + screen.width / 2 * alignment.x) -
         (size.width * 0.5 + size.width * 0.5 * alignment.x) +
         offset.dx;

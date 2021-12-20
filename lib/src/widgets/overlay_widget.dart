@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import '../types/animations/overlay_animation.dart';
@@ -67,8 +69,8 @@ class _OverlayWidgetState extends State<OverlayWidget>
     return Positioned(
       left: _position.dx,
       top: _position.dy,
-      width: widget.width(),
-      height: widget.height(),
+      width: width,
+      height: height,
       child: widget.overlay.overlayAnimation.build(
         widget.canMoved
             ? GestureDetector(
@@ -84,6 +86,22 @@ class _OverlayWidgetState extends State<OverlayWidget>
             : child,
       ),
     );
+  }
+
+  double? get width {
+    final w = widget.width();
+    if (w == null || _size == null) {
+      return w;
+    }
+    return max(w, _size!.width);
+  }
+
+  double? get height {
+    final h = widget.height();
+    if (h == null || _size == null) {
+      return h;
+    }
+    return max(h, _size!.height);
   }
 
   Widget get child => SafeArea(

@@ -18,26 +18,24 @@ class OverlaysController {
     return request.completer.future;
   }
 
-  Future<T?> _dismiss<T>(_OverlayRequest<T?> request, {T? result}) async {
+  Future<T?> _dismiss<T>(_OverlayRequest request, {T? result}) async {
     if (await request.cleanup(result: result)) {
       _requests.remove(request);
     }
 
-    return request.completer.future;
+    return (await request.completer.future) as T?;
   }
 
-  Future<T?> dismiss<T>(QOverlayBase overlay, {T? result}) => _dismiss<T>(
-      _requests.firstWhere((element) => element.overlay == overlay)
-          as _OverlayRequest<T?>,
-      result: result);
+  Future<T?> dismiss<T>(QOverlayBase overlay, {T? result}) =>
+      _dismiss<T>(_requests.firstWhere((element) => element.overlay == overlay),
+          result: result);
 
   Future<T?> dismissName<T>(String name, {T? result}) => _dismiss<T>(
-      _requests.firstWhere((element) => element.overlay.name == name)
-          as _OverlayRequest<T?>,
+      _requests.firstWhere((element) => element.overlay.name == name),
       result: result);
 
   Future<T?> dismissLast<T>({T? result}) =>
-      _dismiss<T>(_requests.last as _OverlayRequest<T?>, result: result);
+      _dismiss<T>(_requests.last, result: result);
 
   Future<void> dismissAll<T>({T? result, bool atSmaeTime = false}) async {
     for (var item in _requests.reversed.toList()) {
