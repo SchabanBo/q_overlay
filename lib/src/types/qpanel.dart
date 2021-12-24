@@ -46,8 +46,6 @@ class QPanel with QOverlayBase {
   @override
   late final QAnimation animation;
 
-  final bool shrink;
-
   @override
   final BoxDecoration? backgroundDecoration;
 
@@ -73,7 +71,6 @@ class QPanel with QOverlayBase {
     this.width,
     this.duration,
     this.color,
-    this.shrink = false,
     String? name,
     Key? key,
   }) : name = name ?? 'Panel${child.hashCode}' {
@@ -115,16 +112,16 @@ class QPanel with QOverlayBase {
 
   double? _getWidth(Size screen) {
     if (width != null) return width;
-    if (shrink) return null;
-    if (alignment.y != 0) return screen.width;
-    return screen.width * defualtWidthPercent;
+    if (alignment.x != 0) return screen.width * 0.3;
+    if (alignment.x == 0 && alignment.y == 0) return screen.width * 0.4;
+    if (alignment.x == 0 && alignment.y != 0) return screen.width;
+    return null;
   }
 
   double? _getHeight(Size screen) {
     if (height != null) return height;
-    if (shrink) return null;
     if (alignment.x != 0 && alignment.y == 0) return screen.height;
-    return screen.height * defualtHightPercent;
+    return null;
   }
 
   Offset getBegin() {
