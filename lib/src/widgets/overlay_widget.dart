@@ -10,6 +10,7 @@ class OverlayWidget extends StatefulWidget {
   final double? Function() height;
   final double? Function() width;
   final Offset Function(Size?, Offset?) position;
+  final Alignment? alignment;
   final bool canMoved;
 
   const OverlayWidget({
@@ -18,6 +19,7 @@ class OverlayWidget extends StatefulWidget {
     required this.height,
     required this.width,
     this.canMoved = false,
+    this.alignment,
     Key? key,
   }) : super(key: key);
 
@@ -66,26 +68,34 @@ class _OverlayWidgetState extends State<OverlayWidget>
   Widget build(BuildContext context) {
     _updateSize();
     final _position = widget.position(_size, _moveingPosition);
-    return Positioned(
-      left: _position.dx,
-      top: _position.dy,
-      width: width,
-      height: height,
-      child: widget.overlay.overlayAnimation.build(
-        widget.canMoved
-            ? GestureDetector(
-                onPanUpdate: (details) {
-                  final size = containerKey.currentContext!.size!;
-                  _moveingPosition = Offset(
-                      details.globalPosition.dx - size.width / 2,
-                      details.globalPosition.dy - size.height * 0.2);
-                  setState(() {});
-                },
-                child: child,
-              )
-            : child,
-      ),
-    );
+    final _child = widget.overlay.overlayAnimation.build(widget.canMoved
+        ? GestureDetector(
+            onPanUpdate: (details) {
+              final size = containerKey.currentContext!.size!;
+              _moveingPosition = Offset(
+                  details.globalPosition.dx - size.width / 2,
+                  details.globalPosition.dy - size.height * 0.2);
+              setState(() {});
+            },
+            child: child,
+          )
+        : child);
+    return widget.alignment != null
+        ? Align(
+            alignment: widget.alignment!,
+            child: SizedBox(
+              width: width,
+              height: height,
+              child: _child,
+            ),
+          )
+        : Positioned(
+            left: _position.dx,
+            top: _position.dy,
+            width: width,
+            height: height,
+            child: _child,
+          );
   }
 
   double? get width {

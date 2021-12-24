@@ -93,8 +93,8 @@ class QPanel with QOverlayBase {
                 overlay: this,
                 height: () => _getHeight(MediaQuery.of(context).size),
                 width: () => _getWidth(MediaQuery.of(context).size),
-                position: (s, _) =>
-                    _calcPosition(MediaQuery.of(context).size, s),
+                alignment: alignment,
+                position: (s, _) => Offset.zero,
               ))
     ];
   }
