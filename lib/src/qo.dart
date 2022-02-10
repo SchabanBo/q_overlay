@@ -7,6 +7,8 @@ class QOContext {
 
   final _controller = OverlaysController();
 
+  int get overlayCount => _controller.length;
+
   /// Show an overlay
   Future<T?> show<T>(QOverlayBase overlay, {BuildContext? context}) async {
     assert(navigationKey != null || context != null,

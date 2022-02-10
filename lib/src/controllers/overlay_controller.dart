@@ -6,6 +6,8 @@ import '../types/qoverlay.dart';
 class OverlaysController {
   final _requests = <_OverlayRequest>[];
 
+  int get length => _requests.length;
+
   Future<T?> add<T>(OverlayState overlayState, QOverlayBase overlay) async {
     final request = _OverlayRequest<T>(overlay);
     _requests.add(request);

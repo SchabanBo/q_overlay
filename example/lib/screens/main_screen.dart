@@ -1,4 +1,5 @@
 import 'package:example/screens/scetion.dart';
+import 'package:example/screens/sections/dialog_section.dart';
 import 'package:example/screens/sections/expander_section.dart';
 import 'package:example/screens/sections/global_expander_section.dart';
 import 'package:example/screens/sections/windows_scetion.dart';
@@ -20,6 +21,7 @@ class _MainScreenState extends State<MainScreen> {
     WindowSection(),
     ExpanderSection(),
     GlobalExpanderssSection(),
+    DialogSection(),
   ];
 
   @override
