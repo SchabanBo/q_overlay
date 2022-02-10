@@ -32,7 +32,7 @@ class QDialog with QOverlayBase {
   @override
   final Color? color;
 
-  final FilterSettings? backgroundFilter;
+  final BackgroundFilterSettings? backgroundFilter;
 
   @override
   final String name;
@@ -60,7 +60,7 @@ class QDialog with QOverlayBase {
     this.margin,
     this.height,
     this.backgroundDecoration,
-    this.backgroundFilter = const FilterSettings(blurX: 1, blurY: 1),
+    this.backgroundFilter = const BackgroundFilterSettings(blurX: 1, blurY: 1),
     this.width,
     this.duration,
     this.color,

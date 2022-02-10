@@ -35,7 +35,7 @@ class QExpander<T> extends StatefulWidget {
 
   final EdgeInsets? margin;
 
-  final FilterSettings? backgroundFilter;
+  final BackgroundFilterSettings? backgroundFilter;
 
   final OverlayActions actions;
 
@@ -55,8 +55,8 @@ class QExpander<T> extends StatefulWidget {
     this.actions = const OverlayActions(),
     this.margin,
     this.color,
-    this.backgroundFilter =
-        const FilterSettings(blurX: 0, blurY: 0, dissmiseOnClick: true),
+    this.backgroundFilter = const BackgroundFilterSettings(
+        blurX: 0, blurY: 0, dissmiseOnClick: true),
     this.animation,
     this.backgroundDecoration,
     this.duration,
@@ -79,7 +79,7 @@ class _QExpanderState<T> extends State<QExpander<T>> {
   void initState() {
     super.initState();
     if (widget.expanded) {
-      WidgetsBinding.instance!.addPostFrameCallback((_) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
         _onTap();
       });
     }

@@ -49,7 +49,7 @@ class _OverlayWidgetState extends State<OverlayWidget>
   }
 
   void _updateSize() {
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       if (containerKey.currentContext != null) {
         final containerSize = containerKey.currentContext!.size;
         if (_size == null) {

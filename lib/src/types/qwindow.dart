@@ -36,7 +36,7 @@ class QWindow with QOverlayBase {
   @override
   final EdgeInsets? margin;
 
-  final FilterSettings? backgroundFilter;
+  final BackgroundFilterSettings? backgroundFilter;
 
   final bool canMove;
 
@@ -76,7 +76,7 @@ class QWindow with QOverlayBase {
     return QWindow(
         name: name,
         alignment: Alignment.center,
-        backgroundFilter: const FilterSettings(),
+        backgroundFilter: const BackgroundFilterSettings(),
         canMove: canMove,
         child: Padding(
           padding: const EdgeInsets.all(8.0),

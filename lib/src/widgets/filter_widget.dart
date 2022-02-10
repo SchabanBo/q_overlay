@@ -7,7 +7,7 @@ import '../types/qoverlay.dart';
 
 class FilterWidget extends StatelessWidget {
   final QOverlayBase overlay;
-  final FilterSettings settings;
+  final BackgroundFilterSettings settings;
   final QAnimation animation;
   const FilterWidget(this.overlay, this.settings, this.animation, {Key? key})
       : super(key: key);

@@ -38,6 +38,7 @@ mixin QOverlayBase {
   Future<T?> show<T>({BuildContext? context});
 }
 
+/// the overlay actions to handle the overlay events
 class OverlayActions<T> {
   /// run an action right before an overlay is about to open
   final Future<void> Function()? onOpen;

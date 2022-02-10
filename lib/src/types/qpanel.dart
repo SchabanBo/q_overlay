@@ -37,7 +37,7 @@ class QPanel with QOverlayBase {
   @override
   final Color? color;
 
-  final FilterSettings? backgroundFilter;
+  final BackgroundFilterSettings? backgroundFilter;
 
   @override
   final String name;
@@ -66,7 +66,7 @@ class QPanel with QOverlayBase {
     this.margin,
     this.height,
     this.backgroundDecoration,
-    this.backgroundFilter = const FilterSettings(),
+    this.backgroundFilter = const BackgroundFilterSettings(),
     this.width,
     this.duration,
     this.color,

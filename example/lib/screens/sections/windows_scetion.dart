@@ -160,7 +160,7 @@ class _WindowSectionState extends State<_WindowSection> {
     QOverlay.show(QWindow(
       name: name,
       position: Offset(_offsetX, _offsetY),
-      backgroundFilter: _isFLoating ? null : const FilterSettings(),
+      backgroundFilter: _isFLoating ? null : const BackgroundFilterSettings(),
       canMove: _canMoved,
       duration: _seconds <= 0 ? null : Duration(seconds: _seconds),
       child: child(name),
