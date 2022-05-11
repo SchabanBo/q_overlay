@@ -62,17 +62,17 @@ class _OverlayWidgetState extends State<OverlayWidget>
     });
   }
 
-  Offset? _moveingPosition;
+  Offset? _movingPosition;
 
   @override
   Widget build(BuildContext context) {
     _updateSize();
-    final _position = widget.position(_size, _moveingPosition);
+    final _position = widget.position(_size, _movingPosition);
     final _child = widget.overlay.overlayAnimation.build(widget.canMoved
         ? GestureDetector(
             onPanUpdate: (details) {
               final size = containerKey.currentContext!.size!;
-              _moveingPosition = Offset(
+              _movingPosition = Offset(
                   details.globalPosition.dx - size.width / 2,
                   details.globalPosition.dy - size.height * 0.2);
               setState(() {});
@@ -115,23 +115,26 @@ class _OverlayWidgetState extends State<OverlayWidget>
   }
 
   Widget get child => SafeArea(
-      child: Material(
+        child: Material(
           color: Colors.transparent,
           key: containerKey,
           child: Container(
-              margin: widget.overlay.margin,
-              decoration: widget.overlay.backgroundDecoration ??
-                  BoxDecoration(
-                    color: widget.overlay.color ??
-                        Theme.of(context).scaffoldBackgroundColor,
-                    borderRadius: BorderRadius.circular(4),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
-                        blurRadius: 8,
-                        offset: const Offset(0, 4),
-                      )
-                    ],
-                  ),
-              child: widget.overlay.child)));
+            margin: widget.overlay.margin,
+            decoration: widget.overlay.backgroundDecoration ??
+                BoxDecoration(
+                  color: widget.overlay.color ??
+                      Theme.of(context).scaffoldBackgroundColor,
+                  borderRadius: BorderRadius.circular(4),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      blurRadius: 8,
+                      offset: const Offset(0, 4),
+                    )
+                  ],
+                ),
+            child: widget.overlay.child,
+          ),
+        ),
+      );
 }

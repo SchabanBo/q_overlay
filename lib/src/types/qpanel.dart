@@ -11,10 +11,7 @@ import 'qoverlay.dart';
 
 /// Show a panel in any router you have in your project
 class QPanel with QOverlayBase {
-  static double defualtWidthPercent = 0.25;
-  static double defualtHightPercent = 0.25;
-
-  /// The Position where the panal should displayed
+  /// The Position where the panel should displayed
   final Alignment alignment;
 
   /// The offset from the Notification position With this offset, you can move
@@ -85,16 +82,21 @@ class QPanel with QOverlayBase {
     return [
       if (backgroundFilter != null)
         OverlayEntry(
-            builder: (context) =>
-                FilterWidget(this, backgroundFilter!, animation)),
+          builder: (context) => FilterWidget(
+            this,
+            backgroundFilter!,
+            animation,
+          ),
+        ),
       OverlayEntry(
-          builder: (context) => OverlayWidget(
-                overlay: this,
-                height: () => _getHeight(MediaQuery.of(context).size),
-                width: () => _getWidth(MediaQuery.of(context).size),
-                alignment: alignment,
-                position: (s, _) => Offset.zero,
-              ))
+        builder: (context) => OverlayWidget(
+          overlay: this,
+          height: () => _getHeight(MediaQuery.of(context).size),
+          width: () => _getWidth(MediaQuery.of(context).size),
+          alignment: alignment,
+          position: (s, _) => Offset.zero,
+        ),
+      )
     ];
   }
 

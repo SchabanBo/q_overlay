@@ -108,8 +108,8 @@ class _PanelSectionState extends State<_PanelSection> {
               ),
               const SizedBox(height: 8),
               ElevatedButton(
-                onPressed: () => QOverlay.dismissAll(atSmaeTime: true),
-                child: const Text('Close All at smae time'),
+                onPressed: () => QOverlay.dismissAll(atSameTime: true),
+                child: const Text('Close All at same time'),
               ),
               const SizedBox(height: 8),
             ],

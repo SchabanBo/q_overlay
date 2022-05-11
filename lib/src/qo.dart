@@ -1,4 +1,5 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
 import 'controllers/overlay_controller.dart';
 import 'types/qoverlay.dart';
 
@@ -35,8 +36,8 @@ class QOContext {
   }
 
   /// Dismiss all overlays
-  Future<void> dismissAll<T>({T? result, bool atSmaeTime = false}) async {
-    return _controller.dismissAll<T>(result: result, atSmaeTime: atSmaeTime);
+  Future<void> dismissAll<T>({T? result, bool atSameTime = false}) async {
+    return _controller.dismissAll<T>(result: result, atSameTime: atSameTime);
   }
 
   Function(String) log = print;

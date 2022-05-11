@@ -33,24 +33,28 @@ class OverlayAnimation {
     OverlayAnimation? result;
     if (animation is QSlideAnimation) {
       result = OverlayAnimation.slide(
-          curvedAnimation: curvedAnimation,
-          controller: controller,
-          begin: animation.getBegin(),
-          end: animation.end);
+        curvedAnimation: curvedAnimation,
+        controller: controller,
+        begin: animation.getBegin(),
+        end: animation.end,
+      );
     }
     if (animation is QFadeAnimation) {
       result = OverlayAnimation.fade(
-          curvedAnimation: curvedAnimation,
-          controller: controller,
-          begin: animation.begin,
-          end: animation.end);
+        curvedAnimation: curvedAnimation,
+        controller: controller,
+        begin: animation.begin,
+        end: animation.end,
+      );
     }
     if (animation is QScaleAnimation) {
       result = OverlayAnimation.scale(
-          curvedAnimation: curvedAnimation,
-          controller: controller,
-          begin: animation.begin,
-          end: animation.end);
+        curvedAnimation: curvedAnimation,
+        alignment: animation.alignment,
+        controller: controller,
+        begin: animation.begin,
+        end: animation.end,
+      );
     }
     if (result == null) {
       controller.dispose();
@@ -108,6 +112,7 @@ class OverlayAnimation {
   factory OverlayAnimation.scale({
     required AnimationController controller,
     required CurvedAnimation curvedAnimation,
+    required Alignment alignment,
     required double begin,
     required double end,
   }) {
@@ -118,6 +123,7 @@ class OverlayAnimation {
     return OverlayAnimation(
         controller: controller,
         animationBuilder: (child) => ScaleTransition(
+              alignment: alignment,
               scale: animation,
               child: child,
             ));

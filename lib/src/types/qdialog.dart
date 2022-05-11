@@ -7,7 +7,6 @@ import '../widgets/filter_widget.dart';
 import '../widgets/overlay_widget.dart';
 import 'animations/fade_animation.dart';
 import 'animations/overlay_animation.dart';
-import 'animations/slide_animation.dart';
 import 'qoverlay.dart';
 
 /// Show a dialog in any router you have in your project

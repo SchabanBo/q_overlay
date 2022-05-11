@@ -61,7 +61,7 @@ class QWindow with QOverlayBase {
     String? name,
     Key? key,
   })  : assert(alignment != null || position != null,
-            'Alignment or position must be provieded'),
+            'Alignment or position must be provided'),
         name = name ?? 'Window${child.hashCode}';
 
   factory QWindow.confirmation({

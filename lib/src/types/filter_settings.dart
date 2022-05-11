@@ -3,25 +3,24 @@ import 'package:flutter/material.dart';
 class BackgroundFilterSettings {
   /// The background filter color.
   final Color? color;
-  final double blurX;
-  final double blurY;
+  final double? blurX;
+  final double? blurY;
 
   /// close the overlay if the user taps outside of it
-  final bool dissmiseOnClick;
+  final bool dismissOnClick;
 
   const BackgroundFilterSettings({
     this.color,
-    this.blurX = 5.0,
-    this.blurY = 5.0,
-    this.dissmiseOnClick = true,
+    this.blurX,
+    this.blurY,
+    this.dismissOnClick = true,
   });
 
-  factory BackgroundFilterSettings.transparent(
-          {bool dissmiseOnClick = false}) =>
+  factory BackgroundFilterSettings.transparent([bool dismissOnClick = true]) =>
       BackgroundFilterSettings(
         color: Colors.transparent,
-        blurX: 0.0001,
-        blurY: 0.0001,
-        dissmiseOnClick: dissmiseOnClick,
+        blurX: null,
+        blurY: null,
+        dismissOnClick: dismissOnClick,
       );
 }

@@ -27,6 +27,7 @@ class QExpander<T> extends StatefulWidget {
 
   final Color? color;
 
+  /// the name of the overlay
   final String name;
 
   final QAnimation? animation;
@@ -35,16 +36,23 @@ class QExpander<T> extends StatefulWidget {
 
   final EdgeInsets? margin;
 
+  /// the background filter settings
   final BackgroundFilterSettings? backgroundFilter;
 
   final OverlayActions actions;
 
   final Widget expandChild;
 
+  /// should the the expand child be visible as default
   final bool expanded;
 
   final Offset offset;
 
+  /// set this to true if you want the expand child to take the same width as
+  /// the parent, otherwise it will take the width of the content
+  final bool fitParentWidth;
+
+  /// return the selected value from the overlay
   final Function(T?)? onSelect;
 
   QExpander({
@@ -55,14 +63,15 @@ class QExpander<T> extends StatefulWidget {
     this.actions = const OverlayActions(),
     this.margin,
     this.color,
-    this.backgroundFilter = const BackgroundFilterSettings(
-        blurX: 0, blurY: 0, dissmiseOnClick: true),
+    this.backgroundFilter =
+        const BackgroundFilterSettings(dismissOnClick: true),
     this.animation,
     this.backgroundDecoration,
     this.duration,
     String? name,
     this.onSelect,
     this.expanded = false,
+    this.fitParentWidth = true,
     this.offset = Offset.zero,
     Key? key,
   })  : name = name ?? 'Expander${child.hashCode}',
@@ -94,7 +103,6 @@ class _QExpanderState<T> extends State<QExpander<T>> {
     );
   }
 
-// Offset(offset.dx + size.width * 0.5, offset.dy + size.height * 0.5)
   void _onTap() {
     final renderBox =
         containerKey.currentContext!.findRenderObject() as RenderBox;
@@ -120,7 +128,6 @@ class _QExpander with QOverlayBase {
   final Size parentSize;
   final Size screenSize;
   final Offset parentPosition;
-
   @override
   late final QAnimation animation;
 
@@ -143,6 +150,7 @@ class _QExpander with QOverlayBase {
     animation = widget.animation ??
         QFadeAnimation(
           child: QScaleAnimation(
+            alignment: widget.alignment * -1,
             child: QSlideAnimation(begin: _getBegin()),
           ),
         );
@@ -159,7 +167,7 @@ class _QExpander with QOverlayBase {
           builder: (context) => OverlayWidget(
                 overlay: this,
                 height: () => null,
-                width: () => null,
+                width: () => widget.fitParentWidth ? parentSize.width : null,
                 position: (s, _) =>
                     _calcPosition(MediaQuery.of(context).size, s),
               ))
@@ -173,10 +181,11 @@ class _QExpander with QOverlayBase {
 
     final alignment = widget.globalAlignment ?? widget.alignment;
     final position = alignment.withinRect(Rect.fromLTRB(
-        parentPosition.dx,
-        parentPosition.dy,
-        parentPosition.dx + parentSize.width,
-        parentPosition.dy + parentSize.height));
+      parentPosition.dx,
+      parentPosition.dy,
+      parentPosition.dx + parentSize.width,
+      parentPosition.dy + parentSize.height,
+    ));
 
     size = size ?? const Size(0, 0);
     final x = position.dx + (size.width * 0.5 * alignment.x - size.width * 0.5);

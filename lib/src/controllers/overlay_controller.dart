@@ -1,6 +1,7 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
 import '../types/qoverlay.dart';
 
 class OverlaysController {
@@ -39,9 +40,9 @@ class OverlaysController {
   Future<T?> dismissLast<T>({T? result}) =>
       _dismiss<T>(_requests.last, result: result);
 
-  Future<void> dismissAll<T>({T? result, bool atSmaeTime = false}) async {
+  Future<void> dismissAll<T>({T? result, bool atSameTime = false}) async {
     for (var item in _requests.reversed.toList()) {
-      if (atSmaeTime) {
+      if (atSameTime) {
         _dismiss(item, result: result);
       } else {
         await _dismiss(item, result: result);

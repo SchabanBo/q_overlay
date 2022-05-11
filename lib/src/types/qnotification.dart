@@ -100,7 +100,7 @@ class QNotification with QOverlayBase {
     if (alignment.x != 0.0) return Offset(alignment.x, 0.0);
 
     if (alignment.y == 0.0 && alignment.y == 0.0) {
-      return Offset(0.0, 5);
+      return const Offset(0.0, 5);
     }
 
     return Offset(0.0, alignment.y);

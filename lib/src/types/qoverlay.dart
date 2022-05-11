@@ -1,4 +1,5 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
 import '../../q_overlay.dart';
 import 'animations/overlay_animation.dart';
 
@@ -6,7 +7,7 @@ mixin QOverlayBase {
   /// a unique name for the overlay
   String get name;
 
-  /// the overlaylay animation
+  /// the overlay animation
   QAnimation get animation;
 
   /// the overlay background color
@@ -21,7 +22,7 @@ mixin QOverlayBase {
 
   BoxDecoration? get backgroundDecoration;
 
-  /// this widget to show in the oeverlay
+  /// this widget to show in the overlay
   Widget get child;
 
   /// set you actions to the overlay events
@@ -47,11 +48,11 @@ class OverlayActions<T> {
   final Future<void> Function()? onReady;
 
   /// run an action when the overlay is about to close
-  /// return [Flase] to cancel the close action
+  /// return [False] to cancel the close action
   final Future<bool> Function(T?)? canClose;
 
   /// run an action when the overlay is closed
-  /// you can here change the overlay reuslt and return a new one
+  /// you can here change the overlay result and return a new one
   final Future<T?> Function(T?)? onClose;
 
   const OverlayActions({

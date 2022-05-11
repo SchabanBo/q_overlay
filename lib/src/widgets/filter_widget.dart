@@ -14,22 +14,31 @@ class FilterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => settings.dissmiseOnClick ? QOverlay.dismiss(overlay) : () {},
-      child: BackdropFilter(
-        filter:
-            ImageFilter.blur(sigmaX: settings.blurX, sigmaY: settings.blurY),
-        child: FutureBuilder(
-          future: Future.microtask(() => null),
-          builder: (_, s) => AnimatedContainer(
-            duration: Duration(milliseconds: animation.durationMilliseconds),
-            constraints: const BoxConstraints.expand(),
-            color: s.connectionState == ConnectionState.done
-                ? settings.color ?? Colors.grey.withOpacity(0.1)
-                : Colors.transparent,
-          ),
-        ),
+    Widget child = FutureBuilder(
+      future: Future.microtask(() {}),
+      builder: (_, s) => AnimatedContainer(
+        duration: Duration(milliseconds: animation.durationMilliseconds),
+        constraints: const BoxConstraints.expand(),
+        color: s.connectionState == ConnectionState.done
+            ? settings.color ?? Colors.grey.withOpacity(0.1)
+            : Colors.transparent,
       ),
     );
+    if (settings.blurX != null && settings.blurY != null) {
+      child = BackdropFilter(
+        filter: ImageFilter.blur(
+          sigmaX: settings.blurX!,
+          sigmaY: settings.blurY!,
+        ),
+        child: child,
+      );
+    }
+    if (settings.dismissOnClick) {
+      child = GestureDetector(
+        onTap: () => QOverlay.dismiss(overlay),
+        child: child,
+      );
+    }
+    return child;
   }
 }
