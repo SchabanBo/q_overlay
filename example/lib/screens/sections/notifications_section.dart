@@ -1,7 +1,8 @@
-import 'package:example/screens/scetion.dart';
+import 'package:example/screens/section.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:q_overlay/q_overlay.dart';
+
 import '../../helpers/alignment_extensions.dart';
 
 class NotificationSection extends Section {

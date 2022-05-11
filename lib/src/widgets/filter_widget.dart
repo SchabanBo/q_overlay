@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 import '../../q_overlay.dart';
-import '../types/qoverlay.dart';
 
 class FilterWidget extends StatelessWidget {
   final QOverlayBase overlay;
@@ -20,7 +19,7 @@ class FilterWidget extends StatelessWidget {
         duration: Duration(milliseconds: animation.durationMilliseconds),
         constraints: const BoxConstraints.expand(),
         color: s.connectionState == ConnectionState.done
-            ? settings.color ?? Colors.grey.withOpacity(0.1)
+            ? settings.color ?? Colors.black.withOpacity(0.1)
             : Colors.transparent,
       ),
     );

@@ -1,10 +1,10 @@
-import 'package:example/screens/scetion.dart';
+import 'package:example/screens/section.dart';
 import 'package:example/screens/sections/dialog_section.dart';
 import 'package:example/screens/sections/expander_section.dart';
 import 'package:example/screens/sections/global_expander_section.dart';
-import 'package:example/screens/sections/windows_scetion.dart';
 import 'package:example/screens/sections/notifications_section.dart';
 import 'package:example/screens/sections/panel_section.dart';
+import 'package:example/screens/sections/windows_scetion.dart';
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatefulWidget {
@@ -20,7 +20,7 @@ class _MainScreenState extends State<MainScreen> {
     PanelSection(),
     WindowSection(),
     ExpanderSection(),
-    GlobalExpanderssSection(),
+    GlobalExpandersSection(),
     DialogSection(),
   ];
 

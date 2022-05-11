@@ -1,5 +1,5 @@
 import 'package:example/helpers/alignment_extensions.dart';
-import 'package:example/screens/scetion.dart';
+import 'package:example/screens/section.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:q_overlay/q_overlay.dart';

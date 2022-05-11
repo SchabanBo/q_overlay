@@ -1,9 +1,8 @@
-import 'package:example/screens/scetion.dart';
-import 'package:flutter/foundation.dart';
+import 'package:example/screens/section.dart';
 import 'package:flutter/material.dart';
 import 'package:q_overlay/q_overlay.dart';
 
-class GlobalExpanderssSection extends Section {
+class GlobalExpandersSection extends Section {
   @override
   Widget header(BuildContext context, bool isExpanded) => const ListTile(
         title: Text('Global Expanders'),

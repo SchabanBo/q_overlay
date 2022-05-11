@@ -1,4 +1,4 @@
-import 'package:example/screens/scetion.dart';
+import 'package:example/screens/section.dart';
 import 'package:flutter/material.dart';
 import 'package:q_overlay/q_overlay.dart';
 
@@ -42,37 +42,40 @@ class _ExpanderSectionState extends State<_ExpanderSection> {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: QExpander<int>(
-              name: _name,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'Selected Index: $_index',
-                  style: const TextStyle(
-                      fontSize: 18, decoration: TextDecoration.underline),
+            name: _name,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'Selected Index: $_index',
+                style: const TextStyle(
+                    fontSize: 18, decoration: TextDecoration.underline),
+              ),
+            ),
+            onSelect: (i) {
+              if (i != null) {
+                setState(() {
+                  _index = i;
+                });
+              }
+            },
+            expandChild: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: List.generate(
+                  10,
+                  (index) => Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        QOverlay.dismissName<int>(_name, result: index);
+                      },
+                      child: Text(index.toString()),
+                    ),
+                  ),
                 ),
               ),
-              onSelect: (i) {
-                if (i != null) {
-                  setState(() {
-                    _index = i;
-                  });
-                }
-              },
-              expandChild: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                      children: List.generate(
-                          10,
-                          (index) => Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    QOverlay.dismissName<int>(_name,
-                                        result: index);
-                                  },
-                                  child: Text(index.toString()),
-                                ),
-                              ))))),
+            ),
+          ),
         )
       ],
     );
@@ -92,9 +95,9 @@ class _ExpanderSectionState extends State<_ExpanderSection> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            Text(
-              alignment.toString(),
-              style: const TextStyle(fontSize: 18),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(alignment.toString()),
             ),
             const SizedBox(height: 15),
             child
@@ -108,8 +111,8 @@ class _ExpanderSectionState extends State<_ExpanderSection> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: const [
-            Text('GlobalExpanders'),
-            Text('This this cool GlobalExpanders'),
+            Text('Expanders'),
+            Text('This this cool Expander'),
           ],
         ),
       );

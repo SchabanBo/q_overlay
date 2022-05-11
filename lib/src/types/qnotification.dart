@@ -71,13 +71,13 @@ class QNotification with QOverlayBase {
   List<OverlayEntry> buildEntries() {
     return [
       OverlayEntry(
-          builder: (context) => OverlayWidget(
-                overlay: this,
-                height: () => height,
-                width: () => width,
-                position: (s, _) =>
-                    _calcPosition(MediaQuery.of(context).size, s),
-              ))
+        builder: (context) => OverlayWidget(
+          overlay: this,
+          height: () => height,
+          width: () => width,
+          position: (s, _) => _calcPosition(MediaQuery.of(context).size, s),
+        ),
+      )
     ];
   }
 

@@ -1,4 +1,4 @@
-import 'package:example/screens/scetion.dart';
+import 'package:example/screens/section.dart';
 import 'package:flutter/material.dart';
 import 'package:q_overlay/q_overlay.dart';
 
@@ -39,10 +39,19 @@ class _DialogSectionState extends State<_DialogSection> {
   }
 
   void _show() {
-    QOverlay.show(QDialog(
+    QOverlay.show(
+      QDialog(
         child: child,
+        backgroundFilter: const BackgroundFilterSettings(
+          blurX: 4,
+          blurY: 4,
+        ),
         backgroundDecoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8), color: Colors.white)));
+          borderRadius: BorderRadius.circular(8),
+          color: Colors.white,
+        ),
+      ),
+    );
   }
 
   Widget get child => Padding(

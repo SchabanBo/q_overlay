@@ -82,13 +82,14 @@ class QDialog with QOverlayBase {
             builder: (context) =>
                 FilterWidget(this, backgroundFilter!, animation)),
       OverlayEntry(
-          builder: (context) => OverlayWidget(
-                overlay: this,
-                height: () => height,
-                width: () => width,
-                alignment: Alignment.center,
-                position: (s, _) => Offset.zero,
-              ))
+        builder: (context) => OverlayWidget(
+          overlay: this,
+          height: () => height,
+          width: () => width,
+          alignment: Alignment.center,
+          position: (s, _) => Offset.zero,
+        ),
+      )
     ];
   }
 }
