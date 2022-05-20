@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -7,7 +8,6 @@ import '../types/animations/fade_animation.dart';
 import '../types/animations/overlay_animation.dart';
 import '../types/animations/scale_animation.dart';
 import '../types/animations/slide_animation.dart';
-import '../types/qoverlay.dart';
 import 'filter_widget.dart';
 import 'overlay_widget.dart';
 
@@ -43,8 +43,8 @@ class QExpander<T> extends StatefulWidget {
 
   final Widget expandChild;
 
-  /// should the the expand child be visible as default
-  final bool expanded;
+  /// should expanded child be visible as default
+  final bool expand;
 
   final Offset offset;
 
@@ -54,6 +54,8 @@ class QExpander<T> extends StatefulWidget {
 
   /// return the selected value from the overlay
   final Function(T?)? onSelect;
+
+  final bool isClickable;
 
   QExpander({
     required this.child,
@@ -70,7 +72,8 @@ class QExpander<T> extends StatefulWidget {
     this.duration,
     String? name,
     this.onSelect,
-    this.expanded = false,
+    this.expand = false,
+    this.isClickable = true,
     this.fitParentWidth = true,
     this.offset = Offset.zero,
     Key? key,
@@ -83,24 +86,39 @@ class QExpander<T> extends StatefulWidget {
 
 class _QExpanderState<T> extends State<QExpander<T>> {
   final containerKey = GlobalKey();
+  bool _expanded = false;
+  late final name = "$hashCode";
 
   @override
-  void initState() {
-    super.initState();
-    if (widget.expanded) {
+  void didUpdateWidget(covariant QExpander<T> oldWidget) {
+    _checkExpand();
+    super.didUpdateWidget(oldWidget);
+  }
+
+  void _checkExpand() {
+    if (widget.expand && !_expanded) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _onTap();
       });
+      _expanded = true;
+      return;
+    }
+    if (!widget.expand && _expanded) {
+      QOverlay.dismissName(name);
+      _expanded = false;
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: _onTap,
-      key: containerKey,
-      child: widget.child,
-    );
+    _checkExpand();
+    return widget.isClickable
+        ? InkWell(
+            onTap: _onTap,
+            key: containerKey,
+            child: widget.child,
+          )
+        : SizedBox(key: containerKey, child: widget.child);
   }
 
   void _onTap() {
@@ -113,11 +131,13 @@ class _QExpanderState<T> extends State<QExpander<T>> {
       widget: widget,
       parentPosition: offset,
       parentSize: size,
+      name: name,
       screenSize: MediaQuery.of(context).size,
     ).show<T>(context: containerKey.currentContext).then((value) {
       if (widget.onSelect != null) {
         widget.onSelect!(value);
       }
+      _expanded = false;
     });
   }
 }
@@ -130,6 +150,8 @@ class _QExpander with QOverlayBase {
   final Offset parentPosition;
   @override
   late final QAnimation animation;
+  @override
+  final String name;
 
   @override
   late final OverlayAnimation overlayAnimation;
@@ -139,6 +161,7 @@ class _QExpander with QOverlayBase {
     required this.parentSize,
     required this.parentPosition,
     required this.screenSize,
+    required this.name,
   });
 
   @override
@@ -233,7 +256,4 @@ class _QExpander with QOverlayBase {
 
   @override
   EdgeInsets? get margin => widget.margin;
-
-  @override
-  String get name => widget.name;
 }

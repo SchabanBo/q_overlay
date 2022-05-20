@@ -13,6 +13,12 @@ class FilterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (!settings.dismissOnClick &&
+        settings.blurX == null &&
+        settings.blurY == null) {
+      return Container();
+    }
+
     Widget child = FutureBuilder(
       future: Future.microtask(() {}),
       builder: (_, s) => AnimatedContainer(

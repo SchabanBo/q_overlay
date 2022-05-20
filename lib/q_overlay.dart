@@ -8,6 +8,7 @@ export 'src/types/qoverlay.dart';
 export 'src/types/qpanel.dart';
 export 'src/types/qwindow.dart';
 export 'src/widgets/qexpander.dart';
+export 'src/widgets/qtext_completer.dart';
 
 // ignore: non_constant_identifier_names
 final QOverlay = QOContext();

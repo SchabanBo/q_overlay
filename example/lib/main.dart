@@ -19,6 +19,30 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           title: const Text('QOverlay'),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.add),
+              onPressed: () {
+                QPanel(
+                    alignment: Alignment.center,
+                    child: QExpander(
+                        child: const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text('Test'),
+                        ),
+                        expandChild: Column(
+                          children: const [
+                            Text('data'),
+                            Text('data'),
+                            Text('data'),
+                            Text('data'),
+                            Text('data'),
+                            Text('data'),
+                          ],
+                        ))).show();
+              },
+            ),
+          ],
         ),
         body: const MainScreen(),
         floatingActionButton: FloatingActionButton(
